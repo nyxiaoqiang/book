@@ -1,7 +1,9 @@
 package cn.edu.nyist.bookmaven1.biz;
 
+import cn.edu.nyist.bookmaven1.vo.BookVo;
+
 public interface BookAddBiz {
 
-	int saveBook(int id, String name, String describ, String newName, double price, String author,String pubDate);
+	int saveBook(BookVo bookvo);
 
 }

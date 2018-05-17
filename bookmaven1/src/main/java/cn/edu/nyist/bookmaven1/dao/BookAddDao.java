@@ -1,7 +1,9 @@
 package cn.edu.nyist.bookmaven1.dao;
 
+import cn.edu.nyist.bookmaven1.vo.BookVo;
+
 public interface BookAddDao {
 
-	int save(int id, String name, String describ, String newName, double price, String author,String pubDate);
+	int save(BookVo bookvo);
 
 }
