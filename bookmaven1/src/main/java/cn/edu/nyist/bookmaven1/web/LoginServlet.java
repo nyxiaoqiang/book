@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 		String vcode=request.getParameter("vcode");
 		HttpSession session = request.getSession(); 
 		String serverVode=(String) session.getAttribute("validateCode");
-		if(!vcode.equalsIgnoreCase(serverVode)) {
+		if(!vcode.equalsIgnoreCase(serverVode)) {/////
 			request.setAttribute("name", name);
 			request.setAttribute("msg", "验证码输入有误错误");
 			request.getRequestDispatcher("login.jsp").forward(request, response);;
