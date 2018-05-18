@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="cn.edu.nyist.bookmaven1.vo.GetTypesVo"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -44,9 +46,16 @@
 						</label>
 						<div class="col-sm-10">
 							<select name="id" class="form-control" id="selectTid">
-								<option value="1">编程</option>
-								<option value="2">电子书</option>
-								<option value="3">小说</option>
+								<% 
+								List<GetTypesVo> li=(List<GetTypesVo>)request.getAttribute("li");
+								    
+									for(int i=0;i<li.size();i++){
+										%>
+										<option value="<%=li.get(i).getId()%>"><%=li.get(i).getName()%></option>
+										<%
+									}
+								%>
+
 							</select>
 						</div>
 					</div>
