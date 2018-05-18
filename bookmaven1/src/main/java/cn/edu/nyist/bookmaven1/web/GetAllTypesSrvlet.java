@@ -34,7 +34,7 @@ public class GetAllTypesSrvlet extends HttpServlet {
 		List<GetTypesVo> li=getAllTypesBiz.foundAllTypes();
 		
 		//var types=[{id:1,name:'编程'}{id:2,name:'电子书'}{id:3,name:'小说'}
-		String js="var types=[";
+		String js="[";//把整个js作为一个数组传到函数中，jsp端给数组起名types，就可以了
 			for(int i=0;i<li.size();i++) {
 				js+="{id:"+li.get(i).getId()+","+"name:'"+li.get(i).getName()+"'}";
 				if(i<li.size()-1) {
@@ -48,7 +48,7 @@ public class GetAllTypesSrvlet extends HttpServlet {
 //		request.setAttribute("li", li);
 //		request.getRequestDispatcher("bookadd.jsp").forward(request, response);
 		response.setContentType("text/javascript;charset=utf-8");//告诉客户端文件是什么类型
-		response.getWriter().write(js);//把这个js格式的文本写到客户端
+		response.getWriter().write("typeSel("+js+")");//把这个js格式的文本写到客户端
 		
 	}
 }

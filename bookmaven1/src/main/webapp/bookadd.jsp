@@ -146,7 +146,7 @@
 	</script>
 	<script type="text/javascript">
 	/*这个函数必须写到函数的使用上面必须先定义再使用*/
-		function typeSel() {
+		function typeSel(types) {
 			var sel=document.getElementById("selectTid");
 			for(var i=0;i<types.length;i++){
 				sel.appendChild(new Option(types[i].name),types[i].id);
@@ -154,7 +154,7 @@
 		}
 	</script>
 	<!-- onload 表示javaScript加载完毕，再去找var types这样才能找到 -->
-	<script type="text/javascript" src="getAllTypes" onload="typeSel()"></script>
+	<script type="text/javascript" src="getAllTypes"></script>
 
 </body>
 </html>
