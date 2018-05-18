@@ -9,7 +9,9 @@
 <title>s书籍添加</title>
 <link href="bs/css/darkly/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
-<link href="bower_components/jquery-date-range-picker/dist/daterangepicker.min.css" rel="stylesheet" type="text/css"/>
+<link
+	href="bower_components/jquery-date-range-picker/dist/daterangepicker.min.css"
+	rel="stylesheet" type="text/css" />
 <style type="text/css">
 .control-label, .btn-default {
 	color: black;
@@ -46,15 +48,6 @@
 						</label>
 						<div class="col-sm-10">
 							<select name="id" class="form-control" id="selectTid">
-								<% 
-								List<GetTypesVo> li=(List<GetTypesVo>)request.getAttribute("li");
-								    
-									for(int i=0;i<li.size();i++){
-										%>
-										<option value="<%=li.get(i).getId()%>"><%=li.get(i).getName()%></option>
-										<%
-									}
-								%>
 
 							</select>
 						</div>
@@ -83,7 +76,7 @@
 								name="author" />
 						</div>
 					</div>
-										<div class="form-group">
+					<div class="form-group">
 						<label for="inputpubDate" class="col-sm-2 control-label">
 							出版日期 </label>
 						<div class="col-sm-10">
@@ -113,7 +106,8 @@
 	</script>
 	<script type="text/javascript" src="bower_components/moment/moment.js">
 	</script>
-	<script type="text/javascript" src="bower_components/jquery-date-range-picker/dist/jquery.daterangepicker.min.js">
+	<script type="text/javascript"
+		src="bower_components/jquery-date-range-picker/dist/jquery.daterangepicker.min.js">
 	</script>
 	<script type="text/javascript">
 		$("#theform").validate({
@@ -150,5 +144,17 @@
 });
 
 	</script>
+	<script type="text/javascript">
+	/*这个函数必须写到函数的使用上面必须先定义再使用*/
+		function typeSel() {
+			var sel=document.getElementById("selectTid");
+			for(var i=0;i<types.length;i++){
+				sel.appendChild(new Option(types[i].name),types[i].id);
+			}
+		}
+	</script>
+	<!-- onload 表示javaScript加载完毕，再去找var types这样才能找到 -->
+	<script type="text/javascript" src="getAllTypes" onload="typeSel()"></script>
+
 </body>
 </html>

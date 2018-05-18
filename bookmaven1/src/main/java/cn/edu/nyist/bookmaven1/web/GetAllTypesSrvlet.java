@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.Size2DSyntax;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,11 +32,23 @@ public class GetAllTypesSrvlet extends HttpServlet {
 		
 		GetAllTypesBiz getAllTypesBiz= new GetAllTypesBizImpl();
 		List<GetTypesVo> li=getAllTypesBiz.foundAllTypes();
-		for (GetTypesVo getTypesVo : li) {
-			System.out.println(getTypesVo.getId()+getTypesVo.getName());
-		}
+		
+		//var types=[{id:1,name:'编程'}{id:2,name:'电子书'}{id:3,name:'小说'}
+		String js="var types=[";
+			for(int i=0;i<li.size();i++) {
+				js+="{id:"+li.get(i).getId()+","+"name:'"+li.get(i).getName()+"'}";
+				if(i<li.size()-1) {
+					js+=",";
+				}
+			}
+		js+="]";
+		//System.out.println(js);  var types=[{id:1,name:'编程'}{id:2,name:'电子书'}{id:3,name:'小说'}]
+		
 		//3.给用户响应    
-		request.setAttribute("li", li);
-		request.getRequestDispatcher("bookadd.jsp").forward(request, response);
+//		request.setAttribute("li", li);
+//		request.getRequestDispatcher("bookadd.jsp").forward(request, response);
+		response.setContentType("text/javascript;charset=utf-8");//告诉客户端文件是什么类型
+		response.getWriter().write(js);//把这个js格式的文本写到客户端
+		
 	}
 }
