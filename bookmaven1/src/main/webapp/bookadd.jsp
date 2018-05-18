@@ -98,30 +98,46 @@
 		
 	</script>
 	<script type="text/javascript"
+		src="/bower_components/jquery-validation/dist/jquery.validate.js">
+		
+	</script>
+	<script type="text/javascript"
 		src="bower_components/bootstrap/dist/js/bootstrap.min.js">
 		
 	</script>
 	<script type="text/javascript"
-		src="bower_components/jquery-validate/dist/jquery.validate.min.js">	
+		src="bower_components/jquery-validate/dist/jquery.validate.min.js">
 	</script>
 	<script type="text/javascript" src="bower_components/moment/moment.js">
+		
 	</script>
 	<script type="text/javascript"
 		src="bower_components/jquery-date-range-picker/dist/jquery.daterangepicker.min.js">
+		
 	</script>
 	<script type="text/javascript">
+
 		$("#theform").validate({
 			rules : {
 				name : {
 					required : true
 				},
-				pwd : {
+				describ : {
+					required : true
+				},
+				price : {
+					required : true
+				},
+				author : {
 					required : true
 				}
 			},
 			messages : {
 				name : "输入不能为空",
-				pwd : "输入不能为空"
+				describ : "输入不能为空",
+				price : "输入不能为空",
+				author : "输入不能为空",
+				
 			},
 			tooltip_options : {
 
@@ -134,26 +150,25 @@
 			}
 		});
 		$('#inputpubDate').dateRangePicker({
-			autoClose: true,
-			format: 'YYYY-MM-DD',
-			language: 'cn',
-			autoClose: true,
+			autoClose : true,
+			format : 'YYYY-MM-DD',
+			language : 'cn',
+			autoClose : true,
 			singleDate : true,
-			showShortcuts: false,
-			singleMonth: true
-});
-
+			showShortcuts : false,
+			singleMonth : true
+		});
 	</script>
 	<script type="text/javascript">
-	/*这个函数必须写到函数的使用上面必须先定义再使用*/
+		/*这个函数必须写到函数的使用上面必须先定义再使用*/
 		function typeSel(types) {
-			var sel=document.getElementById("selectTid");
-			for(var i=0;i<types.length;i++){
-				sel.appendChild(new Option(types[i].name),types[i].id);
+			var sel = document.getElementById("selectTid");
+			for (var i = 0; i < types.length; i++) {
+				sel.appendChild(new Option(types[i].name), types[i].id);
 			}
 		}
 	</script>
-	<iframe src="getAllTypes"></iframe>
+	<iframe src="getAllTypes" style="display: none"></iframe>
 	<!-- onload 表示javaScript加载完毕，再去找var types这样才能找到 -->
 	<!--  <script type="text/javascript" src="getAllTypes"></script>-->
 	<!-- v6版本用ifram实现 -->
