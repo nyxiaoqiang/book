@@ -153,8 +153,9 @@
 			}
 		}
 	</script>
+	<iframe src="getAllTypes"></iframe>
 	<!-- onload 表示javaScript加载完毕，再去找var types这样才能找到 -->
-	<script type="text/javascript" src="getAllTypes"></script>
-
+	<!--  <script type="text/javascript" src="getAllTypes"></script>-->
+	<!-- v6版本用ifram实现 -->
 </body>
 </html>

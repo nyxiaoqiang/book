@@ -47,8 +47,12 @@ public class GetAllTypesSrvlet extends HttpServlet {
 		//3.给用户响应    
 //		request.setAttribute("li", li);
 //		request.getRequestDispatcher("bookadd.jsp").forward(request, response);
-		response.setContentType("text/javascript;charset=utf-8");//告诉客户端文件是什么类型
-		response.getWriter().write("typeSel("+js+")");//把这个js格式的文本写到客户端
+		//response.setContentType("text/javascript;charset=utf-8");//告诉客户端文件是什么类型
+		response.setContentType("text/html;charset=utf-8");
+		//第6版 ，发现不能用JavaScript了就换成html，再给它加上<Script>标签
+		response.getWriter().write("<script>");
+		response.getWriter().write("window.parent.typeSel("+js+")");//把这个js格式的文本写到客户端
+		response.getWriter().write("</script>");
 		
 	}
 }
