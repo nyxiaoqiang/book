@@ -19,8 +19,8 @@ public class BookVo implements Serializable {
 	public int getId() {
 		return id;
 	}
-	public void setId(int inid) {
-		this.id = inid;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public double getPrice() {
 		return price;
@@ -45,6 +45,15 @@ public class BookVo implements Serializable {
 	}
 	public void setNewName(String newName) {
 		this.newName = newName;
+	}
+	
+	
+	private int tid;
+	public int getTid() {
+		return tid;
+	}
+	public void setTid(int tid) {
+		this.tid = tid;
 	}
 	private String name;
 	private String describ;
