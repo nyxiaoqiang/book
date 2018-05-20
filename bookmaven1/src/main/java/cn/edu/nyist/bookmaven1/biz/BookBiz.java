@@ -10,10 +10,14 @@ public interface BookBiz {
 
 
 
-	List<BookVo> findAllBook(int pageNum);
+	int getCountPage(String findByName,String findByType);
 
 
 
-	int getCountPage();
+	List<BookVo> findAllBook(int pageNum, String findByname, String findByType);
+
+
+
+	void delBookByTid(int tid);
 
 }

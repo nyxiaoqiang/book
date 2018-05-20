@@ -52,7 +52,7 @@
 				</nav>
 	<div class="container-fluid well">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 text-center" style="width: 60%;margin-left: 15%">
 				<form class="form-horizontal" role="form" method="post"
 					action="bookadd" id="theform" enctype="multipart/form-data">
 					<div class="form-group">
@@ -69,8 +69,7 @@
 							描述 </label>
 						<div class="col-sm-10">
 							<textarea rows="3" class="form-control" id="inputDescrib"
-								name="describ">   
-							</textarea>
+								name="describ" ></textarea>
 						</div>
 					</div>
 					<div class="form-group">

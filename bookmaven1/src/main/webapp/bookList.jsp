@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8">
+<meta charset=utf-8>
 <title>图书管理主界面</title>
 <!-- 告诉浏览器不要缩放 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,6 +60,40 @@
 				<table class="table table-condensed table-hover table_bordered">
 					<thead>
 						<tr>
+							<td colspan="9" class="text-center">
+								<form class="form-inline " Id="serchFrm" method="get">
+									<div class="form-group">
+										<label for="exampleInputName2">书名</label> 
+										<input type="text" class="form-control" id="exampleInputName2" 
+										<%
+											String findByName=request.getParameter("findByName");
+												if(findByName!=null){
+													%>
+													value="<%=findByName %>"
+													<%
+												}
+										%>
+										name="findByName" placeholder="输入姓名">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputEmail2">类型</label> <input
+											type="text" class="form-control" 
+											<%
+											String findByType=request.getParameter("findByType");
+												if(findByType!=null){
+													%>
+													value="<%=findByType %>"
+													<%
+												}
+										%>
+											name="findByType" id="exampleInputEmail2"
+											placeholder="输入类型">
+									</div>
+									<button type="submit" class="btn btn-default">查找</button>
+								</form>
+							</td>
+						</tr>
+						<tr>
 							<td>序号</td>
 							<td>图片</td>
 							<td>书名</td>
@@ -68,6 +102,7 @@
 							<td>作者</td>
 							<td>价格</td>
 							<td>出版日期</td>
+							<td>操作</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -85,13 +120,17 @@
 							<td><%=bookvo.getAuthor()%></td>
 							<td><%=bookvo.getPrice()%></td>
 							<td><%=bookvo.getPubDate()%></td>
+							<td>
+								<a href="bookDel?tid=<%=bookvo.getTid()%>" class="glyphicon glyphicon-remove" title="删除" onclick="confirmDel(event)"></a>&nbsp;&nbsp;
+								<a href="<%=bookvo.getTid()%>" class="glyphicon glyphicon-pencil" title="修改"></a>
+							</td>
 						</tr>
 						<%
 							}
 						%>
 					</tbody>
 					<tr>
-						<td colspan="8" style="padding: 0px" class="text-center">
+						<td colspan="9" style="padding: 0px" class="text-center">
 							<ul class="pagination active" style="color: #666666">
 								<%
 									int totalPage = (Integer) request.getAttribute("totalPage");
@@ -166,9 +205,16 @@
 	</script>
 	<script type="text/javascript">
 		$(function() {
-			$('a[href="bookList?pageNum=<%=pageNum%>"]').parent("li").addClass(
-					"active");
+			$('a[href="bookList?pageNum=<%=pageNum%>"]').parent("li").addClass("active");
+			$(".pagination a[href^='bookList?pageNum=']").click(function() {
+				this.href+="&"+$("#serchFrm").serialize();
+			});
 		});
+		function confirmDel(event) {
+			if(!confirm("确认删除")){
+					event.preventDefault();
+				}
+		}
 	</script>
 </body>
 </html>

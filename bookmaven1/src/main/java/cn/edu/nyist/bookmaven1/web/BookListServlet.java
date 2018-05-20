@@ -22,6 +22,7 @@ public class BookListServlet extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.获取当前页数参数
+		
 		String strPageNum;
 		int pageNum = 0;
 		try {
@@ -31,27 +32,42 @@ public class BookListServlet extends HttpServlet {
 		} catch (Exception e) {
 			pageNum=1;//默认看第一页
 		}
+		//获取查询参数
+		String findByName=null;
+		String findByType=null;
+		try {
+			findByName = request.getParameter("findByName");
+			findByName=new String(findByName.getBytes("ISO-8859-1"),"utf-8");
+			findByType = request.getParameter("findByType");
+			findByType=new String(findByType.getBytes("ISO-8859-1"),"utf-8");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(findByName);
 		//调业务层
 		BookBiz bookBiz= new BookBizImpl();
 		//把当前页从客户端传到服务端，好让显示书籍的时候分页
-		List<BookVo> li=bookBiz.findAllBook(pageNum);
-		int totalPage=bookBiz.getCountPage();
-		if(totalPage%2==0) {
-			totalPage=totalPage/2;
+		List<BookVo> li=bookBiz.findAllBook(pageNum,findByName,findByType);
+		int totalPage=bookBiz.getCountPage(findByName,findByType);
+		if(totalPage%3==0) {
+			totalPage=totalPage/3;
 		}else {
-			totalPage=totalPage/2+1;
+			totalPage=totalPage/3+1;
 		}
-		
 		//给用户响应
+		response.setContentType("text/html;charset=utf-8");
+		request.setAttribute("findByName", findByName);
+		request.setAttribute("findByType", findByType);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("li", li);
 		
 		request.getRequestDispatcher("bookList.jsp").forward(request, response);
-		
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		doGet(req, resp);
 	}
 }

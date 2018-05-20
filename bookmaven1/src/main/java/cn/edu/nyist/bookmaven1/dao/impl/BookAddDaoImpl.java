@@ -51,7 +51,7 @@ public class BookAddDaoImpl implements BookAddDao {
 	}
 
 	@Override
-	public List<BookVo> find(int pageNum) {
+	public List<BookVo> find(int pageNum, String findByName, String findByType) {
 
 		Connection conn=null;
 		Statement stmt=null;
@@ -63,7 +63,20 @@ public class BookAddDaoImpl implements BookAddDao {
 			stmt=conn.createStatement();
 			//rs=stmt.executeQuery("select * from t_book");
 			//添加分页查找功能
-			rs=stmt.executeQuery("select * from t_book limit "+(2*(pageNum-1)+1-1)+",2");
+			//测试System.out.println(findByName+"1"+findByType+"2");
+			String sql="select * from t_book where 1=1 ";
+			if(!(findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))) {
+				sql+=(" and name like '"+"%"+findByName+"%"+"'"+" and id="+findByType);
+			}else if(!(findByName==null||"".equals(findByName))&&(findByType==null||"".equals(findByType))){
+				sql+=(" and name like '"+"%"+findByName+"%"+"'");
+			}else if((findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))){
+				sql+=(" and id="+findByType);
+			}else {
+				sql=sql;
+			}
+			sql+=" limit "+(3*(pageNum-1)+1-1)+",3";
+			System.out.println(sql);
+			rs=stmt.executeQuery(sql);
 			while(rs.next()) {
 				BookVo bv=new BookVo();
 				bv.setId(rs.getInt("id"));
@@ -87,23 +100,57 @@ public class BookAddDaoImpl implements BookAddDao {
 	}
 
 	@Override
-	public int get() {
+	public int get(String findByName,String findByType) {
 		Connection conn=null;
 		Statement stmt=null;
 		ResultSet rs=null;
+		String sql="select count(*) from t_book where 1=1";
+		if(!(findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))) {
+			sql+=(" and name='"+findByName+"'"+" and id="+findByType);
+		}else if(!(findByName==null||"".equals(findByName))&&(findByType==null||"".equals(findByType))){
+			sql+=(" and name='"+findByName+"'");
+		}else if((findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))){
+			sql+=(" and id="+findByType);
+		}else {
+			sql=sql;
+		}
+		System.out.println(sql);
 		try {
 			conn=DsUtil.getConn();
 			stmt=conn.createStatement();
-			rs=stmt.executeQuery("select count(*) from t_book");
+			rs=stmt.executeQuery(sql);
 			if(rs.next()){
 				return rs.getInt(1);
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			DsUtil.free(rs, stmt, conn);
 		}
 		return 0;
+	}
+
+	@Override
+	public void del(int tid) {
+		Connection conn=null;
+		PreparedStatement stmt=null;
+		String sql="delete from t_book where tid=?";
+		boolean b=false;
+		try {
+			conn=DsUtil.getConn();
+			stmt=conn.prepareStatement(sql);
+			stmt.setInt(1, tid);
+			b=stmt.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DsUtil.free(stmt, conn);
+		}
+		if(b) {
+			System.out.println("删除成功");
+		}else {
+			System.out.println("删除失败");
+		}
+	
 	}
 }

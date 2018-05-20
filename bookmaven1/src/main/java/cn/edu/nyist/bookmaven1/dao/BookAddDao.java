@@ -8,8 +8,12 @@ public interface BookAddDao {
 
 	int save(BookVo bookvo);
 
-	List<BookVo> find(int pageNum);
 
-	int get();
+	int get(String findByName,String findByType);
+
+	List<BookVo> find(int pageNum, String findByname, String findByType);
+
+
+	void del(int tid);
 
 }

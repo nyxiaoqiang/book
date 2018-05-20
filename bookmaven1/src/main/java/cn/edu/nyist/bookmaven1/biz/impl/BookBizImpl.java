@@ -18,16 +18,22 @@ public class BookBizImpl implements BookBiz {
 	}
 
 	@Override
-	public List<BookVo> findAllBook(int pageNum) {
+	public List<BookVo> findAllBook(int pageNum, String findByname, String findByType) {
 		BookAddDao bookAddDao = new BookAddDaoImpl();
-		return bookAddDao.find(pageNum);
+		return bookAddDao.find(pageNum,findByname,findByType);
 	}
 
 	@Override
-	public int getCountPage() {
+	public int getCountPage(String findByName,String findByType) {
 		BookAddDao bookAddDao = new BookAddDaoImpl();
-		return bookAddDao.get();
+		return bookAddDao.get(findByName,findByType);
 	}
 
+	@Override
+	public void delBookByTid(int tid) {
+		BookAddDao bookAddDao = new BookAddDaoImpl();
+		bookAddDao.del(tid);
+		
+	}
 
 }
