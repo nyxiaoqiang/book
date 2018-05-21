@@ -18,10 +18,27 @@ public class BookDelServlet extends HttpServlet {
         super();
             }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*	这是实现权限拦截的
+		 * if(request.getSession().getAttribute("LoginSuccess")==null||!request.getSession().getAttribute("LoginSuccess").equals("1")) 
+			{
+				response.sendRedirect("login.jsp");
+				return;
+			}*/
 		String strTid=request.getParameter("tid");
 		int tid = Integer.parseInt(strTid);
 		BookBiz bookBiz = new BookBizImpl();
 		bookBiz.delBookByTid(tid);
+		String page=null;
+		try {
+			page=request.getParameter("pageNum");
+		} catch (Exception e) {
+		}
+		if(page!=null) {
+			int pageNum=Integer.parseInt(page);
+			request.setAttribute("pageNum", pageNum);
+		}
+		
+		request.getRequestDispatcher("bookList").forward(request, response);
 		}
 
 

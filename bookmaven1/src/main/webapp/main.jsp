@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+	<%
+	/*	这是实现权限拦截的
+	 * if(request.getSession().getAttribute("LoginSuccess")==null||!request.getSession().getAttribute("LoginSuccess").equals("1")) 
+		{
+			response.sendRedirect("login.jsp");
+			return;
+		}*/
+	%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -36,6 +36,12 @@ public class BookAddServlet extends HttpServlet {
         
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*	这是实现权限拦截的
+		 * if(request.getSession().getAttribute("LoginSuccess")==null||!request.getSession().getAttribute("LoginSuccess").equals("1")) 
+			{
+				response.sendRedirect("login.jsp");
+				return;
+			}*/
 		request.setCharacterEncoding("utf-8");
 		/*String name=request.getParameter("name");
 		String describ=request.getParameter("describ");
@@ -67,9 +73,9 @@ public class BookAddServlet extends HttpServlet {
 		bookvo.setNewName(newName);
 		int re=bookAddBiz.saveBook(bookvo);
 		if(re==1) {
-			System.out.println("成功");
+			request.getRequestDispatcher("bookaddsuccess.jsp").forward(request, response);
 		}else {
-			System.out.println("失败");
+			request.getRequestDispatcher("bookadd.jsp").forward(request, response);
 		}
 	}
 

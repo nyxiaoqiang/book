@@ -65,11 +65,11 @@ public class BookAddDaoImpl implements BookAddDao {
 			//ÃÌº”∑÷“≥≤È’“π¶ƒ‹
 			//≤‚ ‘System.out.println(findByName+"1"+findByType+"2");
 			String sql="select * from t_book where 1=1 ";
-			if(!(findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))) {
+			if(!(findByName==null||"".equals(findByName)||"null".equals(findByName))&&!(findByType==null||"".equals(findByType)||"null".equals(findByType))) {
 				sql+=(" and name like '"+"%"+findByName+"%"+"'"+" and id="+findByType);
-			}else if(!(findByName==null||"".equals(findByName))&&(findByType==null||"".equals(findByType))){
+			}else if(!(findByName==null||"".equals(findByName)||"null".equals(findByName))&&(findByType==null||"".equals(findByType)||"null".equals(findByType))){
 				sql+=(" and name like '"+"%"+findByName+"%"+"'");
-			}else if((findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))){
+			}else if((findByName==null||"".equals(findByName)||"null".equals(findByName))&&!(findByType==null||"".equals(findByType)||"null".equals(findByType))){
 				sql+=(" and id="+findByType);
 			}else {
 				sql=sql;
@@ -105,11 +105,11 @@ public class BookAddDaoImpl implements BookAddDao {
 		Statement stmt=null;
 		ResultSet rs=null;
 		String sql="select count(*) from t_book where 1=1";
-		if(!(findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))) {
+		if(!(findByName==null||"".equals(findByName)||"null".equals(findByName))&&!(findByType==null||"".equals(findByType)||"null".equals(findByType))) {
 			sql+=(" and name='"+findByName+"'"+" and id="+findByType);
-		}else if(!(findByName==null||"".equals(findByName))&&(findByType==null||"".equals(findByType))){
+		}else if(!(findByName==null||"".equals(findByName)||"null".equals(findByName))&&(findByType==null||"".equals(findByType)||"null".equals(findByType))){
 			sql+=(" and name='"+findByName+"'");
-		}else if((findByName==null||"".equals(findByName))&&!(findByType==null||"".equals(findByType))){
+		}else if((findByName==null||"".equals(findByName)||"null".equals(findByName))&&!(findByType==null||"".equals(findByType)||"null".equals(findByType))){
 			sql+=(" and id="+findByType);
 		}else {
 			sql=sql;
@@ -151,6 +151,5 @@ public class BookAddDaoImpl implements BookAddDao {
 		}else {
 			System.out.println("…æ≥˝ ß∞‹");
 		}
-	
 	}
 }

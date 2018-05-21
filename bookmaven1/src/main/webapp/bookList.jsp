@@ -4,6 +4,15 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	
+	<%
+	/*	这是实现权限拦截的
+	 * if(request.getSession().getAttribute("LoginSuccess")==null||!request.getSession().getAttribute("LoginSuccess").equals("1")) 
+		{
+			response.sendRedirect("login.jsp");
+			return;
+		}*/
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +26,10 @@
 .table_bordered tr {
 	border: 1px solid black;
 }
+<%
+		String findByType=(String)request.getAttribute("findByType");
+		String findByName=(String)request.getAttribute("findByName");
+%>
 </style>
 </head>
 <body>
@@ -61,35 +74,32 @@
 					<thead>
 						<tr>
 							<td colspan="9" class="text-center">
-								<form class="form-inline " Id="serchFrm" method="get">
+								<form class="form-inline " Id="serchFrm" method="post">
 									<div class="form-group">
 										<label for="exampleInputName2">书名</label> 
 										<input type="text" class="form-control" id="exampleInputName2" 
-										<%
-											String findByName=request.getParameter("findByName");
-												if(findByName!=null){
-													%>
-													value="<%=findByName %>"
-													<%
-												}
+										<% 
+										if(!(findByName==null||"".equals(findByName)||"null".equals(findByName))){
+											%>
+											value="<%=findByName %>"
+											<%
+										}
 										%>
-										name="findByName" placeholder="输入姓名">
+										 name="findByName" placeholder="输入姓名">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputEmail2">类型</label> <input
-											type="text" class="form-control" 
+											type="text" class="form-control" 											<% 
+										if(!(findByType==null||"".equals(findByType)||"null".equals(findByType))){
+											%>
+											value="<%=findByType %>"
 											<%
-											String findByType=request.getParameter("findByType");
-												if(findByType!=null){
-													%>
-													value="<%=findByType %>"
-													<%
-												}
+										}
 										%>
 											name="findByType" id="exampleInputEmail2"
 											placeholder="输入类型">
 									</div>
-									<button type="submit" class="btn btn-default">查找</button>
+									<button type="submit" class="btn btn-default" id="whenClick">查找</button>
 								</form>
 							</td>
 						</tr>
@@ -108,6 +118,7 @@
 					<tbody>
 						<%
 							List<BookVo> li = (List<BookVo>) request.getAttribute("li");
+							int pageNum = (Integer) request.getAttribute("pageNum");
 							for (BookVo bookvo : li) {
 						%>
 						<tr>
@@ -120,8 +131,8 @@
 							<td><%=bookvo.getAuthor()%></td>
 							<td><%=bookvo.getPrice()%></td>
 							<td><%=bookvo.getPubDate()%></td>
-							<td>
-								<a href="bookDel?tid=<%=bookvo.getTid()%>" class="glyphicon glyphicon-remove" title="删除" onclick="confirmDel(event)"></a>&nbsp;&nbsp;
+							<td><!-- bookDel?pageNum=3&tid=41 -->
+								<a href="bookDel?pageNum=<%=pageNum%>&tid=<%=bookvo.getTid()%>" class="glyphicon glyphicon-remove" title="删除" onclick="confirmDel(event)"></a>&nbsp;&nbsp;
 								<a href="<%=bookvo.getTid()%>" class="glyphicon glyphicon-pencil" title="修改"></a>
 							</td>
 						</tr>
@@ -134,7 +145,7 @@
 							<ul class="pagination active" style="color: #666666">
 								<%
 									int totalPage = (Integer) request.getAttribute("totalPage");
-									int pageNum = (Integer) request.getAttribute("pageNum");
+								    //int pageNum = (Integer) request.getAttribute("pageNum");
 									if (pageNum > 1) {
 								%>
 								<li><a href="bookList?pageNum=<%=pageNum - 1%>">上一页</a></li>
@@ -204,12 +215,21 @@
 		src="bower_components/bootstrap/dist/js/bootstrap.min.js">
 	</script>
 	<script type="text/javascript">
-		$(function() {
-			$('a[href="bookList?pageNum=<%=pageNum%>"]').parent("li").addClass("active");
-			$(".pagination a[href^='bookList?pageNum=']").click(function() {
-				this.href+="&"+$("#serchFrm").serialize();
-			});
-		});
+	$(function() {
+		$('a[href="bookList?pageNum=<%=pageNum%>"]').parent("li").addClass("active");
+
+	});
+	$(".pagination a[href^='bookList?pageNum=']").click(function() {
+		alert('sb')
+//		this.href+="&pageNum="+<%=pageNum%>;
+		this.href+="&"+$("#serchFrm").serialize();
+	});
+	$("#whenClick").click(function() {//当表单提交时，把当前页改成第一页
+		alert('dsb')
+//		this.href+="&pageNum=1";
+//		this.href+="&"+$("#serchFrm").serialize();
+		document.getElementById("serchFrm").action="?pageNum=1";
+	});
 		function confirmDel(event) {
 			if(!confirm("确认删除")){
 					event.preventDefault();

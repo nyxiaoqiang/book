@@ -42,8 +42,11 @@ public class LoginServlet extends HttpServlet {
 			boolean re=loginBiz.findByNameAndPwd(name,pwd);
 			//3.给用户响应
 			if(re) {
+				//记录是否登录成功
+				request.getSession().setAttribute("LoginSuccess", "1");
 				response.sendRedirect("main.jsp");
 			}else {
+				//登陆失败，记得回填用户名
 				request.setAttribute("name", name);
 				request.setAttribute("msg", "用户名或密码错误");
 				request.getRequestDispatcher("login.jsp").forward(request, response);

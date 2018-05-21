@@ -26,6 +26,12 @@ public class GetAllTypesSrvlet extends HttpServlet {
 
 	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*	这是实现权限拦截的
+		 * if(request.getSession().getAttribute("LoginSuccess")==null||!request.getSession().getAttribute("LoginSuccess").equals("1")) 
+			{
+				response.sendRedirect("login.jsp");
+				return;
+			}*/
 		//默认是get请求
 		//1.获取参数，这里不用获取参数第一步不用写
 		//2.调用业务层

@@ -2,6 +2,14 @@
 <%@page import="cn.edu.nyist.bookmaven1.vo.GetTypesVo"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+	<%
+	/*	这是实现权限拦截的
+	 * if(request.getSession().getAttribute("LoginSuccess")==null||!request.getSession().getAttribute("LoginSuccess").equals("1")) 
+		{
+			response.sendRedirect("login.jsp");
+			return;
+		}*/
+	%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,7 +29,7 @@
 </head>
 <body>
 <div class="col-md-12">
-				<nav class="navbar navbar-default" role="navigation">
+				
 					<div class="navbar-header">
 
 						<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -49,10 +57,12 @@
 							<li><a href="#">退出</a></li>
 						</ul>
 					</div>
-				</nav>
+			<div  class="col-md-12">
+				<div class="text-center" style="overflow: hidden;"><h2 style="color: green">图书添加界面</h2></div>
+			</div>
 	<div class="container-fluid well">
 		<div class="row">
-			<div class="col-md-12 text-center" style="width: 60%;margin-left: 15%">
+			<div class="col-md-12 text-center" style="width: 30%;margin-left: 30%">
 				<form class="form-horizontal" role="form" method="post"
 					action="bookadd" id="theform" enctype="multipart/form-data">
 					<div class="form-group">
@@ -115,13 +125,14 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button type="submit" class="btn btn-default">提交</button>
+							<button type="submit" class="btn btn-default text-center" style=" width: 100px;">提交</button>
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+</div>
 	<script type="text/javascript"
 		src="bower_components/jquery/dist/jquery.min.js">
 		
