@@ -1,0 +1,21 @@
+{
+  "name": "bookmaven1",
+  "version": "0.0.0",
+  "authors": [
+    "xiaoqiang"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],"dependencies":{
+  	"bootstrap":"~3.3.7",
+  	"jquery-validate":"1.17.0",
+  	"jquery-validation-bootstrap-tooltip":"0.10.2",
+  	"jquery-date-range-picker":"0.18.0",
+  	"jquery-validation":"1.17.0"
+  }
+}
